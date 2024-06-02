@@ -4,17 +4,17 @@
     "description": "Double click to get the meaning",
     "version": "1.0",
     "action": {
-      "default_popup": "popup.html",
+      "default_popup": "views/popup.html",
       "default_icon": "pic.png"
     },
     "content_scripts": [
         {
-            "js": [ "main.js" ],
+            "js": [ "content/main.js" ],
             "matches": [ "\u003Call_urls>" ]
         }
     ],
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "service/background.js"
     },
     "permissions": ["storage"]
   }
