@@ -5,7 +5,7 @@
     "version": "1.0",
     "action": {
       "default_popup": "views/popup.html",
-      "default_icon": "pic.png"
+      "default_icon": "images/pic.png"
     },
     "content_scripts": [
         {
