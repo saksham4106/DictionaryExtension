@@ -1,23 +1,122 @@
-<html>
-    <head>
-        <script src="js/popup.js"> </script>
-    </head>
-  <body>
-    <h1>Dictionary Extension</h1><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dictionary Extension</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-    <div>
-      <label for='dark_mode'> Dark Mode</label>
-      <input id='dark_mode' type="checkbox" checked><br>
+        h1 {
+            text-align: center;
+            color: #333;
+        }
 
-      <label for='blur'> Disappear on click</label>
-      <input id='blur' type='checkbox'><br>
+        .container {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            padding: 20px;
+        }
 
-      <label for='max_meanings'>Maximum meanings</label>
-      <input id='max_meanings' type="number"><br>
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-      <input id='submit' type="submit" value="Submit Changes">
+        label {
+            display: block;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="number"] {
+            width: calc(100% - 10px);
+            padding: 8px 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .form-group.inline {
+            display: flex;
+            align-items: center;
+        }
+
+        .form-group.inline label {
+            margin: 0;
+            margin-right: 10px;
+        }
+
+    </style>
+    <script src="js/popup.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Dictionary Extension</h1>
+        <form>
+            <div class="form-group inline">
+                <input id="dark_mode" type="checkbox" checked>
+                <label for="dark_mode">Dark Mode</label>
+            </div>
+
+            <div class="form-group inline">
+                <input id="blur" type="checkbox">
+                <label for="blur">Disappear on Click</label>
+            </div>
+
+            <div class="form-group inline">
+                <input id="activation_with_click" type="checkbox">
+                <label for="activation_with_click">Activate on DoubleClick</label>
+            </div>
+
+            <div class="form-group">
+                <label for="meaning_key">Key for Activation</label>
+                <input id="meaning_key" type="text" placeholder="Enter key">
+            </div>
+
+            <div class="form-group">
+                <label for="max_meanings">Maximum Meanings</label>
+                <input id="max_meanings" type="number" placeholder="Enter number">
+            </div>
+
+            <div class="form-group">
+                <input id="submit" type="submit" value="Submit Changes">
+            </div>
+        </form>
     </div>
-
-    
-  </body>
+</body>
 </html>
+  

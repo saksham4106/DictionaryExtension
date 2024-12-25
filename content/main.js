@@ -2,10 +2,29 @@ const api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/"
 var max_meanings
 var dark_mode
 var click_to_blur
-
+var meaning_key
+var activation_with_click
 
 window.addEventListener('dblclick', () => {
+    chrome.storage.sync.get(["activation_with_click"], (res) => {activation_with_click = res.activation_with_click})
+    if(activation_with_click){
+        main();
+    }
+    
+})
+window.addEventListener("keypress", (e) => {
+    chrome.storage.sync.get(["activation_with_click"], (res) => {activation_with_click = res.activation_with_click})
+    if(!activation_with_click){
+        chrome.storage.sync.get(["meaning_key"], res => {meaning_key = res.meaning_key})
+        if(e.key == meaning_key){
+            main();
+        }
+    }
 
+})
+
+
+function main(){
     chrome.storage.sync.get(["dark_mode"], (result) => {
         dark_mode = result.dark_mode
     })
@@ -19,12 +38,13 @@ window.addEventListener('dblclick', () => {
     })
 
 
-    var word = window.getSelection().toString()
+    var word = window.getSelection().toString().trim()
     if(word.length <= 1 || word.length > 45 || word.indexOf(' ') >= 0 || /\d/.test(word)){
         return;
     }
 
     var popupdiv = document.createElement("div")
+    popupdiv.className = "meaning_popup"
     var p1 = document.createElement("p")
     var p2 = document.createElement("ul")
     var close = document.createElement('button')
@@ -48,14 +68,19 @@ window.addEventListener('dblclick', () => {
     }
 
     if(click_to_blur){
-        window.onclick = function(event){
-            if(popupdiv){
-                if (!popupdiv.contains(event.target)){
-                    opupdiv.style.display = "None"
+        window.onclick = function (event){
+            if(!close.contains(event.target)){
+                for(const popup of document.getElementsByClassName("meaning_popup")){
+                    if(popup){
+                        if(!popup.contains(event.target)){
+                         popup.style.display = "None"
+                        }
+                    }
                 }
-            }
+            }       
         }
     }
+
 
     fetch(api_url + word).then(res => {
         if (res.ok){
@@ -88,10 +113,10 @@ window.addEventListener('dblclick', () => {
 
     }).catch(() => p1.innerText = "Word not found")
 
-})
+}
 
 function setCss(popupdiv, p1, p2, close){
-    popupdiv.setAttribute('id', 'popup')
+    // popupdiv.setAttribute('id', 'popup')
     popupdiv.style.position = "fixed"
     popupdiv.style.top = "50%"
     popupdiv.style.left = "50%"
